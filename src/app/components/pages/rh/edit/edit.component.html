@@ -1,0 +1,175 @@
+<div *ngIf="user">
+  <div class="row mt-1">
+    <div class="col-12">
+      <div class="navbar bg-white b-b flex-row">
+        <div class="d-flex">
+          <div class="fs-1x font500" *ngIf="user">
+            Editando a {{ user.name }} {{ user.last_name }}
+          </div>
+        </div>
+        <div class="d-flex flex justify-content-end">
+          <div class="btn-group">
+            <a [routerLink]="[ '/rh']" class="btn btn-gradient-primary btn-icon-o">
+              <i class="fas fa-arrow-left"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-9">
+      <div class="row portlet-box p-3 d-flex mt-2">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="">Nombre</label>
+            <input #b type="text" class="form-control form-control-sm" name="name" (blur)="update( b )"
+              placeholder="Nombre del empleado" [value]="user.name" data-tag="Nombre">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="">Apellidos</label>
+            <input #c type="text" class="form-control form-control-sm" name="last_name" (blur)="update( c )"
+              placeholder="Apellidos del empleado" [value]="user.last_name" data-tag="Apellidos">
+
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="">Correo</label>
+            <input #d type="email" class="form-control form-control-sm" name="email" (blur)="update( d )"
+              placeholder="correo electrónico" [value]="user.email" data-tag="Correo electrónico">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="">Usuario</label>
+            <input #e type="text" class="form-control form-control-sm" name="user_name" (blur)="update( e )"
+              placeholder="Usuario" [value]="user.user_name" data-tag="Usuario">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="">Teléfono</label>
+            <input #f type="tel" class="form-control form-control-sm" (blur)="update( f )" name="phone"
+              placeholder="Ingresa el teléfono sin guiones, espacios etc." [value]="user.phone || ''"
+              data-tag="Teléfono">
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Orientación</label>
+            <div class="form-check">
+              <input #g class="form-check-input" type="radio" [checked]="user.gender == 1" name="gender" value="1"
+                (change)="update( g )" data-tag="Género">
+              <label class="form-check-label">
+                Hombre
+              </label>
+            </div>
+            <div class="form-check">
+              <input #h class="form-check-input" type="radio" [checked]="user.gender == 2" name="gender" value="2"
+                (change)="update( h )" data-tag="Género">
+              <label class="form-check-label">
+                Mujer
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Área</label>
+            <select id="area" #a name="area" data-tag="Área" class="form-control form-control-sm"
+              (change)="getBoss( a ); update( a )">
+              <option [selected]="user.area == area._id" *ngFor="let area of areas" [value]="area._id">{{ area.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Rol</label>
+            <select #i name="role" data-tag="Rol" class="form-control form-control-sm" (change)="update( i )">
+              <option [selected]="user.role == rol._id" *ngFor="let rol of roles" [value]="rol._id">{{ rol.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Jefe directo</label>
+            <select #j name="boss" data-tag="Jefe directo" class="form-control form-control-sm" (change)="update( j )">
+              <option *ngFor="let boss of bosses" [value]="boss._id">{{ boss.name }} {{ boss.last_name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="float-left customUi-switchToggle switchToggle-success">
+              <input #l type="checkbox" [id]="user._id" [checked]="user.status === 'active'"
+                (change)="update( l )" [value]="user.status === 'active' ? 'inactive' : 'active'" name="status" data-tag="Estado">
+              <label [for]="user._id">
+                <span class="label-switchToggle"></span>
+                <span class="label-helper">{{ user.status === 'active' ? 'Activo' : 'Inactivo' }}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Foto</label>
+            <img [src]="previewImg" *ngIf="previewImg"
+              class="img-fluid shadow-sm avatar100 ml-auto mr-auto d-block rounded-circle mt-2">
+            <input type="file" accept='image/*' class="form-control form-control-sm" name="photo" data-tag="Foto"
+              (change)="preview( $event )">
+          </div>
+          <p *ngIf="imgErr" class="text-danger fs06">{{ imgErr }}</p>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <button #k (click)="update( k )" class="btn btn-sm btn-block btn-outline-danger" name="password"
+              data-tag="Contraseña" value="***">
+              <i class="fas fa-redo"></i>
+              Reiniciar contraseña
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div class="row mt-3 portlet-box pt-2">
+        <div class="col-12">
+          <p class="text-primary font-weight-bold font-italic fs07 text-center">La información se actualiza cuando sales
+            del
+            campo o cambias una opción</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="row portlet-box p-3 d-flex mt-2">
+        <div class="col-sm-12">
+          <p class="text-info text-center fs09">Historial de cambios</p>
+          <p class="fs06 b-b" *ngFor="let mod of modifications">
+            ( {{ mod.date | date:"MMM d, y, h:mm:ss a" }} )<br><b class="">{{ mod.user.name }}
+              {{ mod.user.last_name }}</b> cambió el campo
+            <b>{{ mod.updated[3] }}</b> de <b class="">{{ mod.updated[1] }}</b>
+            por <b class="">{{ mod.updated[2] }}</b>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

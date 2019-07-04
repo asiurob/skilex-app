@@ -1,0 +1,149 @@
+<div class="row mt-1">
+  <div class="col-12">
+    <div class="navbar bg-white b-b flex-row">
+      <div class="d-flex">
+        <div class="fs-1x font500">
+          Nueva campaña
+        </div>
+      </div>
+      <div class="d-flex flex justify-content-end">
+        <div class="btn-group">
+          <a [routerLink]="[ '/campaigns']" class="btn btn-gradient-primary btn-icon-o">
+            <i class="fas fa-arrow-left"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="form" (submit)="save()" class="mb-5">
+  <div class="row mt-3 portlet-box p-3 d-flex">
+    <div class="col-12">
+      <span class="b-b fs-1x font500 mb-3 d-block pb-3 mt-3">Información de la empresa</span>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label class="fs08">Empresa</label>
+        <input type="text" placeholder="Nombre de la empresa" required class="form-control form-control-sm"
+          formControlName="name" name="name">
+        <p *ngIf="!form.controls.name.valid && clicked" class="text-danger fs06">El nombre de la empresa es necesario
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label class="fs08">Contacto</label>
+        <input type="text" placeholder="Nombre del contacto principal" required class="form-control form-control-sm"
+          formControlName="contact" name="contact">
+        <p *ngIf="!form.controls.contact.valid && clicked" class="text-danger fs06">El contacto es necesario</p>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label class="fs08">Teléfono</label>
+        <input type="text" placeholder="Ingresa el teléfono sin guiones, espacios, etc." required
+          class="form-control form-control-sm" formControlName="phone" name="phone">
+        <p *ngIf="!form.controls.phone.valid && clicked" class="text-danger fs06">Agrega el número telefónico</p>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label class="fs08">Email</label>
+        <input type="email" placeholder="Correo electrónico del contacto" required
+          class="form-control form-control-sm" formControlName="email" name="email">
+        <p *ngIf="!form.controls.email.valid && clicked" class="text-danger fs06">El correo del contacto es necesario</p>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="form-group">
+        <label class="fs08">Domicilio</label>
+        <input type="text" placeholder="Calle, No. ext y No. int" required class="form-control form-control-sm"
+          formControlName="address" name="address">
+        <p *ngIf="!form.controls.address.valid && clicked" class="text-danger fs06">Escribe una dirección</p>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label class="fs08">Código postal</label>
+        <input type="number" placeholder="C.P." required class="form-control form-control-sm" formControlName="zip"
+          name="zip">
+        <p *ngIf="!form.controls.zip.valid && clicked" class="text-danger fs06">Digita el código postal</p>
+      </div>
+    </div>
+    <div class="col-12">
+      <span class="b-b fs-1x font500 mb-3 d-block pb-3 mt-3">Información ziro</span>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label class="fs08">No. empleados</label>
+        <input type="number" min="0" placeholder="Número aproximado de empleados" class="form-control form-control-sm"
+          formControlName="noemployees" name="noemployees">
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label class="fs08">Esquema</label>
+        <select required class="form-control form-control-sm" formControlName="type" name="type">
+          <option value="0" selected disabled>Selecciona un tipo de esquema</option>
+          <option value="nomina">Nómina</option>
+          <option value="credito">Crédito directo</option>
+          <option value="tdc">Tarjeta de crédito</option>
+        </select>
+        <p *ngIf="!form.controls.type.valid && clicked" class="text-danger fs06">Selecciona la forma de pago</p>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label class="fs08">Fecha del evento</label>
+        <input required type="date" class="form-control form-control-sm" formControlName="date" name="date">
+        <p *ngIf="!form.controls.date.valid && clicked" class="text-danger fs06">Es necesaria la fecha del evento</p>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label class="fs08">Hora del evento</label>
+        <input required type="time" class="form-control form-control-sm" formControlName="time" name="time">
+        <p *ngIf="!form.controls.time.valid && clicked" class="text-danger fs06">Marca la hora que iniciará el evento
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="fs08">Asistentes</label>
+        <select multiple required class="form-control form-control-sm" formControlName="people" name="people">
+          <option value="0" selected disabled>Selecciona el personal</option>
+          <option *ngFor="let user of userList" [value]="user._id">{{ user.name }} {{ user.last_name }}</option>
+        </select>
+        <p *ngIf="!form.controls.people.valid && clicked" class="text-danger fs06">Selecciona a un empleado que asistirá
+          al evento</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label class="fs08">Comentarios</label>
+        <textarea formControlName="comments" name="comments" class="form-control form-control-sm" cols="30" rows="5"
+          placeholder="Comentarios adicionales"></textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="">Foto</label>
+        <img [src]="previewImg" *ngIf="previewImg"
+          class="img-fluid shadow-sm ml-auto mr-auto d-block rounded mt-2">
+        <input required type="file" accept='image/*' class="form-control form-control-sm" formControlName="photo"
+          name="photo" (change)="preview( $event )">
+      </div>
+      <p *ngIf="!form.controls.photo.valid && clicked" class="text-danger fs06">La foto es nesesaria</p>
+      <p *ngIf="imgErr" class="text-danger fs06">{{ imgErr }}</p>
+    </div>
+  </div>
+
+  <div class="row mt-3 portlet-box p-3">
+    <div class="clearfix d-block">
+      <button type="submit" class="btn btn-sm btn-outline-primary float-right mt-7">
+        Guardar campaña
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,162 @@
+<div *ngIf="campaign">
+  <div class="row mt-1">
+    <div class="col-12">
+      <div class="navbar bg-white b-b flex-row">
+        <div class="d-flex">
+          <div class="fs-1x font500">
+            Editando {{ campaign.name }}
+          </div>
+        </div>
+        <div class="d-flex flex justify-content-end">
+          <div class="btn-group">
+            <a [routerLink]="[ '/campaigns']" class="btn btn-gradient-primary btn-icon-o">
+              <i class="fas fa-arrow-left"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-9">
+      <div class="row mt-3 portlet-box p-3 d-flex">
+        <div class="col-12">
+          <span class="b-b fs-1x font500 mb-3 d-block pb-3 mt-3">Información de la empresa</span>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="fs08">Empresa</label>
+            <input type="text" placeholder="Nombre de la empresa" required class="form-control form-control-sm"
+              #a data-tag="Nombre" name="name" [value]="campaign.name" (blur)="update( a )">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="fs08">Contacto</label>
+            <input type="text" placeholder="Nombre del contacto principal" required class="form-control form-control-sm"
+            data-tag="Contacto" name="contact" [value]="campaign.contact"
+            #b (blur)="update( b )">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="fs08">Teléfono</label>
+            <input type="text" placeholder="Ingresa el teléfono sin guiones, espacios, etc." required
+            data-tag="Teléfono" class="form-control form-control-sm" name="phone" [value]="campaign.phone"
+            #c (blur)="update( c )">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="fs08">Email</label>
+            <input type="email" placeholder="Correo electrónico del contacto" required
+            data-tag="Correo electrónico" class="form-control form-control-sm" name="email" [value]="campaign.email"
+            #d (blur)="update( d )">
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="form-group">
+            <label class="fs08">Domicilio</label>
+            <input type="text" placeholder="Calle, No. ext y No. int" required class="form-control form-control-sm"
+            data-tag="Domicilio" name="address" [value]="campaign.address"
+            #e (blur)="update( e )">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="fs08">Código postal</label>
+            <input type="number" placeholder="C.P." required class="form-control form-control-sm" name="zip"
+            data-tag="Código postal" [value]="campaign.zip"
+            #f (blur)="update( f )">
+          </div>
+        </div>
+        <div class="col-12">
+          <span class="b-b fs-1x font500 mb-3 d-block pb-3 mt-3">Información ziro</span>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="fs08">No. empleados</label>
+            <input type="number" min="0" placeholder="Número aproximado de empleados"
+            data-tag="Número de empleados" class="form-control form-control-sm" name="noemployees" [value]="campaign.noemployees"
+            #g (blur)="update( g )">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="fs08">Esquema</label>
+            <select required class="form-control form-control-sm" name="type" data-tag="Esquema"
+            #h (change)="update( h )">
+              <option [selected]="campaign.type === 'nomina'" value="nomina">Nómina</option>
+              <option [selected]="campaign.type === 'credito'" value="credito">Crédito directo</option>
+              <option [selected]="campaign.type === 'tdc'" value="tdc">Tarjeta de crédito</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="fs08">Fecha del evento</label>
+            <input required type="date" class="form-control form-control-sm" name="date" data-tag="Fecha del evento"
+              [value]="campaign.date | mongoDate:'date'"
+            #i (blur)="update( i )">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="fs08">Hora del evento</label>
+            <input required type="time" class="form-control form-control-sm" name="time" [value]="campaign.time" data-tag="Hora del evento"
+            #j (blur)="update( j )">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="fs08">Asistentes</label>
+            <select multiple required class="form-control form-control-sm" name="people" data-tag="Asistentes"
+            #k (blur)="update( k )">
+              <option [selected]="campaign.people.indexOf( user._id ) >= 0" *ngFor="let user of userList"
+                [value]="user._id">{{ user.name }} {{ user.last_name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="fs08">Comentarios</label>
+            <textarea name="comments" class="form-control form-control-sm" cols="30" rows="5" data-tag="Comentarios"
+              placeholder="Comentarios adicionales"
+              #l (blur)="update( l )">{{ campaign.comments }}</textarea>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Foto</label>
+            <img [src]="previewImg" *ngIf="previewImg" class="img-fluid shadow-sm ml-auto mr-auto d-block rounded mt-2">
+            <input required type="file" accept='image/*' class="form-control form-control-sm" name="photo"
+              (change)="preview( $event )">
+          </div>
+          <p *ngIf="imgErr" class="text-danger fs06">{{ imgErr }}</p>
+        </div>
+      </div>
+      <div class="row mt-3 portlet-box pt-2">
+        <div class="col-12">
+          <p class="text-primary font-weight-bold font-italic fs07 text-center">La información se actualiza cuando sales
+            del
+            campo o cambias una opción</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="row portlet-box p-3 d-flex mt-3">
+        <div class="col-sm-12">
+          <p class="text-info text-center fs09">Historial de cambios</p>
+          <p class="fs06 b-b" *ngFor="let mod of modifications">
+            ( {{ mod.date | date:"MMM d, y, h:mm:ss a" }} )<br><b class="">{{ mod.user.name }}
+              {{ mod.user.last_name }}</b> cambió el campo
+            <b>{{ mod.updated[3] }}</b> de <b class="">{{ mod.updated[1] }}</b>
+            por <b class="">{{ mod.updated[2] }}</b>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

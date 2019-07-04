@@ -1,0 +1,77 @@
+<div class="page-wrapper" id="page-wrapper">
+    <aside id="page-aside" class=" page-aside aside-fixed">
+        <div class="sidenav darkNav">
+            <a [routerLink]="['/']" class="app-logo d-flex flex flex-row align-items-center overflow-hidden justify-content-center">
+                <i class="fas fa-crosshairs inline-icon rounded avatar32 d-inline-flex align-items-center justify-content-center"></i>
+                <span class="logo-text d-inline-flex"> <span class='font700 d-inline-block mr-1'>s k i l e x</span></span>
+            </a>
+            <div class="flex">
+                <div class="aside-content slim-scroll">
+                    <ul class="metisMenu" id="metisMenu">
+                        <li *ngFor="let module of modules" routerLinkActive="active">
+                            <i class="fas {{ module.icon }} nav-thumbnail"></i>
+                            <a [routerLink]="[module.route]">
+                                <span class="nav-text">
+                                    {{ module.name }} 
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <main class="content">
+        <header class="navbar page-header whiteHeader navbar-expand-lg">
+            <ul class="nav flex-row mr-auto">
+                <li class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link sidenav-btn h-lg-down">
+                        <span class="navbar-toggler-icon"></span>
+                    </a>
+                    <a class="nav-link sidenav-btn h-lg-up" href="#page-aside"  data-toggle="dropdown" data-target="#page-aside">
+                        <span class="navbar-toggler-icon"></span>
+                    </a>
+                </li>
+
+            </ul>
+            <ul class="nav flex-row order-lg-2 ml-auto nav-icons">
+                <li class="nav-item dropdown user-dropdown align-items-center">
+                    <a class="nav-link" href="#" id="dropdown-user" role="button" data-toggle="dropdown">
+                        <span class="user-states states-online">
+                            <img src="images/avatar6.jpg" width="35" alt="" class=" img-fluid rounded-circle">
+                        </span>
+                        <span class="ml-2 h-lg-down dropdown-toggle">
+                                {{ user.name }} {{ user.lastName.substring(0,1).toUpperCase() }}
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
+                        <div class="text-center p-3 pt-0 b-b mb-5">
+                            <span class="mb-0 d-block font300 text-title fs-1x">{{ user.name }}
+                                <span class="font700">{{ user.lastName }}</span>
+                            </span>
+                            <span class="fs12 mb-0 text-muted">Administrator</span>
+                        </div>
+                        <a class="dropdown-item" href="#"><i class="icon-User"></i>My Profile</a>
+                        <a class="dropdown-item" href="#"><i class="icon-Newspaper"></i> Tasks</a>
+                        <a class="dropdown-item" href="#"><i class="icon-Speach-Bubble4 "></i> Messages <span class="badge badge-text text-primary-active bg-primary-light ml-2">5 New</span></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><i class="icon-Gear"></i> Settings<span class="badge badge-text text-danger-active bg-danger-light ml-2">Update</span></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="page-login.html"><i class="icon-Power"></i> logout</a>
+
+                    </div>
+                </li>
+                <li class="h-lg-up nav-item">
+                    <a href="#" class=" nav-link collapsed" data-toggle="collapse" data-target="#navbarToggler" aria-expanded="false">
+                        <i class="icon-Magnifi-Glass2"></i>
+                    </a>
+                </li>
+            </ul>
+        </header>
+        <div class="page-content d-flex flex">
+            <div class="container-fluid">
+              <router-outlet></router-outlet>
+            </div>
+        </div>
+    </main>
+</div>

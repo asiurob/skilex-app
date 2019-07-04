@@ -1,0 +1,66 @@
+<div class="row mt-1">
+  <div class="col-12">
+    <div class="navbar bg-white b-b flex-row">
+      <div class="d-flex">
+        <div class="fs-1x font500">
+          Recursos Humanos
+        </div>
+      </div>
+      <div class="d-flex flex justify-content-end">
+        <div class="btn-group">
+          <a [routerLink]="[ '/rh/new']" class="btn btn-gradient-success btn-icon-o">
+            <i class="fa fa-plus"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-lg-3 col-sm-6 mb-30" *ngFor="let user of users">
+    <div class="bg-white pt-3 pb-3 border1">
+      <img (click)="showUser( user._id )" src="{{ url }}/users/{{ user.photo }}" alt="{{ user.name }} {{ user.last_name }}"
+        class="img-fluid shadow-sm avatar100 ml-auto mr-auto d-block rounded-circle pointer">
+      <div class="text-center pt-15">
+        <h5 class="text-primary mb-0 pointer" (click)="showUser( user._id )">{{ user.name }} {{ user.last_name }}<br>
+          <small class="text-secondary font-weight-normal font-italic fs08">{{ user.user_name }}</small>
+        </h5>
+        <span class="text-muted d-block pb-2 pt-1 b-b">{{ user.role.name }} de {{ user.area.name }}</span>
+        <div class="clearfix pl-3 pr-3 mt-2">
+            <div class="float-left customUi-switchToggle switchToggle-success">
+                <input #l type="checkbox" [id]="user._id" [checked]="user.status === 'active'"
+                  (change)="update( user, l )" [value]="user.status === 'active' ? 'inactive' : 'active'" name="status" data-tag="Estado">
+                <label [for]="user._id">
+                  <span class="label-switchToggle"></span>
+                  <span class="label-helper">{{ user.status === 'active' ? 'Activo' : 'Inactivo' }}</span>
+                </label>
+              </div>
+          <div class="float-right">
+            <a href="mailto:{{ user.email }}"
+            data-toggle="tooltip" [title]="user.email" data-placement="bottom"
+            >
+              <i class="fas fa-envelope text-primary ml-3 fs13"></i>
+            </a>
+            <a *ngIf="user.phone" href="tel:{{ user.phone }}"
+            data-toggle="tooltip" [title]="user.phone" data-placement="bottom"
+            >
+              <i class="fas fa-phone text-primary ml-3 fs13"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="pages.length > 1">
+  <div class="col-sm-4 offset-sm-4 mx-auto">
+    <nav>
+      <ul class="pagination">
+        <li *ngFor="let page of pages; index as i" class="page-item" routerLinkActive="active">
+          <a class="page-link" href="#">{{ ( i + 1) }}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

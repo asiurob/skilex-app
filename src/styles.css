@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/ngx-toastr/toastr.css";
+.pointer { cursor: pointer !important; }
+
+.fs01 { font-size: 0.1rem !important; }
+.fs02 { font-size: 0.2rem !important; }
+.fs03 { font-size: 0.3rem !important; }
+.fs04 { font-size: 0.4rem !important; }
+.fs05 { font-size: 0.5rem !important; }
+.fs06 { font-size: 0.6rem !important; }
+.fs07 { font-size: 0.7rem !important; }
+.fs08 { font-size: 0.8rem !important; }
+.fs09 { font-size: 0.9rem !important; }
+.fs10 { font-size: 1rem !important; }
+.fs11 { font-size: 1.1rem !important; }
+.fs12 { font-size: 1.2rem !important; }
+.fs13 { font-size: 1.3rem !important; }
+.fs14 { font-size: 1.4rem !important; }
+.fs15 { font-size: 1.5rem !important; }
+.fs16 { font-size: 1.6rem !important; }
+.fs17 { font-size: 1.7rem !important; }
+.fs18 { font-size: 1.8rem !important; }
+.fs19 { font-size: 1.9rem !important; }
+.fs20 { font-size: 2rem !important; }
+
+.avatar25{ height: 25px; width: 25px; }
+
+.campImg { height: 100px; width: auto; }

@@ -1,0 +1,50 @@
+<div class="page-wrapper" id="page-wrapper">
+    <main class="content">
+      <div class="container flex d-flex">
+        <div class='row flex align-items-center'>
+          <div class='col-lg-4 mt-60 mb-60 col-md-6 col-sm-12 ml-auto mr-auto'>
+            <div class="bg-white shadow-sm overflow-hidden rounded">
+              <div class="p-4 text-center bg-dark-active text-white">
+                <label href="#"
+                  class="avatar avatar60 ml-auto mr-auto bg-gradient-primary text-white rounded-circle">
+                  <i class="fas fa-crosshairs"></i></label>
+                <h5 class='text-center h5 pt-10 mb-0 text-white'>s k i l e x</h5>
+              </div>
+              <div class="p-3 pt-30 pb-30">
+
+                <form #f="ngForm" role="form" (submit)="login( f )">
+                  <div class="input-icon-group">
+                    <div class="d-flex flex flex-row">
+                      <label class="flex d-flex mr-auto" for='pass'>Usuario</label>
+                    </div>
+                    <div class='input-icon-append'>
+                      <i class="fa fa-user"></i>
+                      <input placeholder="Usuario o correo electrónico" type="text" class="form-control"
+                      ngModel name="user" required>
+                    </div>
+                  </div>
+                  <div class="input-icon-group">
+                    <div class="d-flex flex flex-row">
+                      <label class="flex d-flex mr-auto" for='pass'>Contraseña</label>
+                    </div>
+                    <div class='input-icon-append'>
+                      <i class="fa fa-lock"></i>
+                      <input placeholder="Ingresa tu contraseña" type="password" class="form-control"
+                      ngModel name="pass" required>
+                    </div>
+                  </div>
+                  <div class="customUi-checkbox  pb-2">
+                    <input id="check-remember" type="checkbox" name="agree">
+                  </div>
+                  <button type="submit" class="btn btn-gradient-primary btn-block btn-lg">Ingresar</button>
+                  <div class="text-center alert alert-danger mt-5" role="alert" *ngIf="errMessage">
+                    <b>Error en la {{ errOn }} </b><br> {{ errMessage }}
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>

@@ -1,0 +1,142 @@
+<div class="row mt-1">
+  <div class="col-12">
+    <div class="navbar bg-white b-b flex-row">
+      <div class="d-flex">
+        <div class="fs-1x font500">
+          Nuevo empleado
+        </div>
+      </div>
+      <div class="d-flex flex justify-content-end">
+        <div class="btn-group">
+          <a [routerLink]="[ '/rh']" class="btn btn-gradient-primary btn-icon-o">
+            <i class="fas fa-arrow-left"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<form [formGroup]="form" (submit)="save()">
+  <div class="row mt-3 portlet-box p-3 d-flex">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="">Nombre</label>
+        <input required type="text" class="form-control form-control-sm" formControlName="name" name="name"
+          placeholder="Nombre del empleado">
+        <p *ngIf="!form.controls.name.valid && clicked" class="text-danger fs06">El nombre es necesario</p>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="">Apellidos</label>
+        <input required type="text" class="form-control form-control-sm" formControlName="lastname" name="lastname"
+          placeholder="Apellidos del empleado">
+        <p *ngIf="!form.controls.lastname.valid && clicked" class="text-danger fs06">El apellido es necesario</p>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="">Correo</label>
+        <input required type="email" class="form-control form-control-sm" formControlName="email" name="email"
+          placeholder="correo electrónico">
+        <p *ngIf="!form.controls.email.valid && clicked" class="text-danger fs06">El correo es necesario</p>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="">Usuario</label>
+        <input required type="text" class="form-control form-control-sm" formControlName="username" name="username"
+          placeholder="Usuario">
+        <p *ngIf="!form.controls.username.valid && clicked" class="text-danger fs06">El nombre de usuario es necesario
+        </p>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="">Teléfono</label>
+        <input type="tel" class="form-control form-control-sm" 
+        formControlName="phone" name="phone" placeholder="Ingresa el teléfono sin guiones, espacios etc.">
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">Orientación</label>
+        <div class="form-check">
+          <input required class="form-check-input" type="radio" formControlName="gender" name="gender" value="1">
+          <label class="form-check-label">
+            Hombre
+          </label>
+        </div>
+        <div class="form-check">
+          <input required class="form-check-input" type="radio" formControlName="gender" name="gender" value="2">
+          <label class="form-check-label">
+            Mujer
+          </label>
+        </div>
+      </div>
+      <p *ngIf="!form.controls.gender.valid && clicked" class="text-danger fs06">Elige un genero</p>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">Área</label>
+        <select #a formControlName="area" name="area" class="form-control form-control-sm" (change)="getBoss( a )">
+          <option value="0" selected disabled>Selecciona una área</option>
+          <option *ngFor="let area of areas" [value]="area._id">{{ area.name }}</option>
+        </select>
+      </div>
+      <p *ngIf="!form.controls.area.value && clicked" class="text-danger fs06">Elige un área</p>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">Rol</label>
+        <select formControlName="role" name="role" class="form-control form-control-sm">
+          <option value="0" selected disabled>Selecciona un rol</option>
+          <option *ngFor="let rol of roles" [value]="rol._id">{{ rol.name }}</option>
+        </select>
+      </div>
+      <p *ngIf="!form.controls.role.value && clicked" class="text-danger fs06">Elige un rol</p>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="">Jefe directo</label>
+        <select formControlName="boss" name="boss" class="form-control form-control-sm">
+          <option value="0" selected disabled>Selecciona un jefe directo</option>
+          <option *ngFor="let boss of bosses" [value]="boss._id">{{ boss.name }} {{ boss.last_name }}</option>
+        </select>
+      </div>
+      <p *ngIf="!form.controls.boss.value && clicked" class="text-danger fs06">Elige un jefe</p>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="">Foto</label>
+        <input required type="file" accept='image/*' class="form-control form-control-sm" formControlName="photo"
+          name="photo" (change)="preview( $event )">
+      </div>
+      <p *ngIf="!form.controls.photo.valid && clicked" class="text-danger fs06">La foto es nesesaria</p>
+      <p *ngIf="imgErr" class="text-danger fs06">{{ imgErr }}</p>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+          <img [src]="previewImg" *ngIf="previewImg"
+          class="img-fluid shadow-sm avatar100 ml-auto mr-auto d-block rounded-circle mt-2">
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3 portlet-box p-3">
+    <div class="clearfix d-block">
+      <button [disabled]="!form.valid" type="submit" class="btn btn-sm btn-outline-primary float-right mt-7">Guardar
+        empleado</button>
+    </div>
+  </div>
+</form>
